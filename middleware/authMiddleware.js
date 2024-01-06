@@ -17,9 +17,7 @@ export const authMiddleware = (req, res, next) => {
     req.user = decoded;
     next();
   } catch (err) {
-    res.send({
-      error: "Unauthorized, Token is not Valid",
-    });
+    next(err);
   }
 };
 
@@ -31,8 +29,6 @@ export const adminAuthMiddleware = (req, res, next) => {
     if (user.role !== "ADMIN")
       throw new BaseError(401, "Unauthorized Access for role");
   } catch (err) {
-    res.status(401).json({
-      error: `Error:${err}`,
-    });
+    next(err);
   }
 };

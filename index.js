@@ -13,7 +13,6 @@ import CartController from "./controller/cart.js";
 import cartRoutes from "./routes/cart.js";
 import CartService from "./service/cart.js";
 import CartRepository from "./repository/repo/cart.js";
-import dotenv from "dotenv";
 
 const app = express();
 const routes = express.Router();
@@ -37,7 +36,6 @@ const conCart = new CartController(svcCart);
 app.use("", productRouter(routes, conProduct));
 app.use("", authRoutes(routes, conAuth));
 app.use("", cartRoutes(routes, conCart));
-dotenv.config();
 app.use(handleErrorMiddleware);
 
 app.listen(3000, () => console.log(`app listen at http://localhost:3000`));

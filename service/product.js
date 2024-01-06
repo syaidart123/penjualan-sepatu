@@ -1,4 +1,5 @@
 import productSchema from "../utils/validator/product-validator.js";
+import BaseError from "../utils/error/error.js";
 
 class ProductService {
   constructor(repo) {
@@ -8,8 +9,7 @@ class ProductService {
     const { error } = productSchema.validate(req, {
       abortEarly: true,
     });
-    if (error) throw new Error(error);
-
+    if (error) throw new BaseError(error);
     return this.repo.add(req);
   };
 
@@ -19,17 +19,21 @@ class ProductService {
 
   updateProduct = async (req, id) => {
     const matched = await this.repo.getByID(id);
-    if (!matched) throw new Error("id not found");
+    if (!matched) throw new BaseError(401, "id not found");
     const { error } = productSchema.validate(req, {
       abortEarly: true,
     });
-    if (error) throw new Error(error);
+    if (error) throw new BaseError(error);
 
     return this.repo.update(req, id);
   };
 
   deleteProduct = (id) => {
     return this.repo.delete(id);
+  };
+
+  detailProduct = (id) => {
+    return this.repo.getByID(id);
   };
 }
 

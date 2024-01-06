@@ -22,7 +22,7 @@ class ProductRepo {
         name: req.name,
         price: req.price,
         desc: req.desc,
-        size: req.size,
+        sizes: req.sizes,
       }
     );
   };

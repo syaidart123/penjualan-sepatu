@@ -2,6 +2,7 @@ class ProductController {
   constructor(svc) {
     this.svc = svc;
   }
+
   getProduct = async (req, res, next) => {
     try {
       const data = await this.svc.getProduct();
@@ -23,6 +24,7 @@ class ProductController {
       next(err);
     }
   };
+
   updateProduct = async (req, res, next) => {
     try {
       const { id } = req.params;
@@ -34,6 +36,7 @@ class ProductController {
       next(err);
     }
   };
+
   deleteProduct = async (req, res, next) => {
     try {
       const { id } = req.params;
@@ -41,6 +44,16 @@ class ProductController {
       res.status(204).json({
         status: "deleted",
       });
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  detailProduct = async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const data = await this.svc.detailProduct(id);
+      res.status(200).json({ data });
     } catch (err) {
       next(err);
     }
